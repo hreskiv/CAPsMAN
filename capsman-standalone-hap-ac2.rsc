@@ -6,7 +6,6 @@ add name=bridge-wifi vlan-filtering=yes
 add interface=bridge-wifi name=vlan-10-vip vlan-id=10
 add interface=bridge-wifi name=vlan-20-guest vlan-id=20
 add interface=bridge-wifi name=vlan-33-mgmt vlan-id=33
-add interface=ether1 name=vlan-199-wan vlan-id=199
 /interface wifi channel
 add band=2ghz-n disabled=no name=ch-2 width=20mhz
 add band=5ghz-ac disabled=no name=ch-5 skip-dfs-channels=all width=20/40mhz
@@ -36,8 +35,6 @@ add configuration=cfg-guest-2 configuration.mode=ap disabled=no mac-address=\
     76:4D:28:B4:D6:F8 master-interface=wifi1 name=wifi3
 add configuration=cfg-guest-5 configuration.mode=ap disabled=no mac-address=\
     76:4D:28:B4:D6:F9 master-interface=wifi2 name=wifi4
-/ip hotspot profile
-set [ find default=yes ] html-directory=hotspot
 /ip pool
 add name=dhcp_pool0 ranges=172.16.10.2-172.16.10.126
 add name=dhcp_pool1 ranges=192.168.20.2-192.168.20.254
@@ -69,7 +66,7 @@ add address=172.16.10.1/25 interface=vlan-10-vip network=172.16.10.0
 add address=192.168.20.1/24 interface=vlan-20-guest network=192.168.20.0
 add address=10.33.33.1/27 interface=vlan-33-mgmt network=10.33.33.0
 /ip dhcp-client
-add interface=vlan-199-wan
+add interface=ether1
 /ip dhcp-server network
 add address=10.33.33.0/27 dns-server=10.33.33.1 gateway=10.33.33.1
 add address=172.16.10.0/25 dns-server=172.16.10.1 gateway=172.16.10.1
@@ -77,12 +74,6 @@ add address=192.168.20.0/24 dns-server=192.168.20.1 gateway=192.168.20.1
 /ip dns
 set allow-remote-requests=yes
 /ip firewall nat
-add action=masquerade chain=srcnat out-interface=vlan-199-wan
-/system clock
-set time-zone-name=Europe/Warsaw
+add action=masquerade chain=srcnat out-interface=ether1
 /system identity
-set name=hAP-AC2-7.13
-/system note
-set show-at-login=no
-/tool romon
-set enabled=yes
+set name=CAPsMAN

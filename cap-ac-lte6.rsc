@@ -28,8 +28,6 @@ add datapath=data disabled=no mac-address=C6:AD:34:6E:49:27 master-interface=\
 # mode: AP, SSID: wifi6-guest
 add datapath=data disabled=no mac-address=C6:AD:34:6E:49:26 master-interface=\
     wifi1 name=wifi8
-/ip hotspot profile
-set [ find default=yes ] html-directory=hotspot
 /interface bridge port
 add bridge=bridge-wifi interface=ether1
 add bridge=bridge-wifi interface=wifi1 pvid=10
@@ -45,16 +43,8 @@ set caps-man-addresses=10.33.33.1 enabled=yes slaves-datapath=data \
     slaves-static=yes
 /ip dhcp-client
 add interface=vlan-33-mgmt
-/ip dns
-set servers=8.8.8.8
 /ip firewall filter
 add action=drop chain=output disabled=yes dst-address=192.168.10.1 protocol=\
     icmp
-/system clock
-set time-zone-name=Europe/Warsaw
 /system identity
-set name=wAP-AC-LTE6
-/system note
-set show-at-login=no
-/tool romon
-set enabled=yes
+set name=CAP
