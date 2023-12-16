@@ -1,6 +1,6 @@
 # Description
 
-This repository contains two configuration files, each featuring configurations for two wireless networks named **VIP** and **Guest**. These configurations apply regardless of whether the device is in standalone or controller mode.
+This repository contains two configuration files, one is the controller, other one is the CAP for two wireless networks named **VIP** and **Guest**. These configurations apply regardless of whether the device is in standalone or controller mode.
 
 1. **capsman-standalone-hap-ac2**: 
    - Configuration for a standalone access point and CAPsMAN.
