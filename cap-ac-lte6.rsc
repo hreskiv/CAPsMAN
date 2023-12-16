@@ -3,12 +3,8 @@
 /interface bridge
 add name=bridge-wifi vlan-filtering=yes
 /interface wifi
-# managed by CAPsMAN
-# mode: AP, SSID: wifi6-vip, channel: 2432/n
 set [ find default-name=wifi1 ] configuration.manager=capsman .mode=ap \
     disabled=no
-# managed by CAPsMAN
-# mode: AP, SSID: wifi6-vip, channel: 5180/ac/Ce
 set [ find default-name=wifi2 ] configuration.manager=capsman .mode=ap \
     disabled=no
 /interface lte
@@ -20,13 +16,9 @@ add interface=bridge-wifi name=vlan-33-mgmt vlan-id=33
 /interface wifi datapath
 add disabled=no name=data
 /interface wifi
-# managed by CAPsMAN
-# mode: AP, SSID: wifi6-guest
-add datapath=data disabled=no mac-address=C6:AD:34:6E:49:27 master-interface=\
+add datapath=data disabled=no master-interface=\
     wifi2 name=wifi7
-# managed by CAPsMAN
-# mode: AP, SSID: wifi6-guest
-add datapath=data disabled=no mac-address=C6:AD:34:6E:49:26 master-interface=\
+add datapath=data disabled=no master-interface=\
     wifi1 name=wifi8
 /interface bridge port
 add bridge=bridge-wifi interface=ether1
