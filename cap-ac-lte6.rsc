@@ -1,0 +1,60 @@
+# 2023-12-16 13:47:13 by RouterOS 7.13
+# model = RBwAPGR-5HacD2HnD
+/interface bridge
+add name=bridge-wifi vlan-filtering=yes
+/interface wifi
+# managed by CAPsMAN
+# mode: AP, SSID: wifi6-vip, channel: 2432/n
+set [ find default-name=wifi1 ] configuration.manager=capsman .mode=ap \
+    disabled=no
+# managed by CAPsMAN
+# mode: AP, SSID: wifi6-vip, channel: 5180/ac/Ce
+set [ find default-name=wifi2 ] configuration.manager=capsman .mode=ap \
+    disabled=no
+/interface lte
+set [ find default-name=lte1 ] allow-roaming=no band=""
+/interface vlan
+add interface=bridge-wifi name=vlan-10-vip vlan-id=10
+add interface=bridge-wifi name=vlan-20-guest vlan-id=20
+add interface=bridge-wifi name=vlan-33-mgmt vlan-id=33
+/interface wifi datapath
+add disabled=no name=data
+/interface wifi
+# managed by CAPsMAN
+# mode: AP, SSID: wifi6-guest
+add datapath=data disabled=no mac-address=C6:AD:34:6E:49:27 master-interface=\
+    wifi2 name=wifi7
+# managed by CAPsMAN
+# mode: AP, SSID: wifi6-guest
+add datapath=data disabled=no mac-address=C6:AD:34:6E:49:26 master-interface=\
+    wifi1 name=wifi8
+/ip hotspot profile
+set [ find default=yes ] html-directory=hotspot
+/interface bridge port
+add bridge=bridge-wifi interface=ether1
+add bridge=bridge-wifi interface=wifi1 pvid=10
+add bridge=bridge-wifi interface=wifi2 pvid=10
+add bridge=bridge-wifi interface=wifi7 pvid=20
+add bridge=bridge-wifi interface=wifi8 pvid=20
+/interface bridge vlan
+add bridge=bridge-wifi tagged=bridge-wifi,ether1 vlan-ids=10
+add bridge=bridge-wifi tagged=bridge-wifi,ether1 vlan-ids=20
+add bridge=bridge-wifi tagged=bridge-wifi,ether1 vlan-ids=33
+/interface wifi cap
+set caps-man-addresses=10.33.33.1 enabled=yes slaves-datapath=data \
+    slaves-static=yes
+/ip dhcp-client
+add interface=vlan-33-mgmt
+/ip dns
+set servers=8.8.8.8
+/ip firewall filter
+add action=drop chain=output disabled=yes dst-address=192.168.10.1 protocol=\
+    icmp
+/system clock
+set time-zone-name=Europe/Warsaw
+/system identity
+set name=wAP-AC-LTE6
+/system note
+set show-at-login=no
+/tool romon
+set enabled=yes
