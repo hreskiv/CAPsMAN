@@ -1,4 +1,12 @@
 # Description
-This repo contains two files: 
-capsman-standalone-hap-ac2 - this configuration contains config for standalone access point and CAPsMAN configuration with new wifi package from MikroTik on hAP AC^2 on ROS 7.13 and higher.
-cap-ac-lte6 - CAP configured on wAP AC LTE6 kit, iwth working VLANs.
+
+This repository contains two configuration files:
+
+1. **capsman-standalone-hap-ac2**: 
+   - This configuration is for a standalone access point.
+   - Includes CAPsMAN configuration with the new wifi package from MikroTik.
+   - Compatible with hAP AC^2 on RouterOS (ROS) version 7.13 and higher.
+
+2. **cap-ac-lte6**:
+   - CAP configured on the wAP AC LTE6 kit.
+   - Includes working VLANs.
