@@ -7,8 +7,6 @@ set [ find default-name=wifi1 ] configuration.manager=capsman .mode=ap \
     disabled=no
 set [ find default-name=wifi2 ] configuration.manager=capsman .mode=ap \
     disabled=no
-/interface lte
-set [ find default-name=lte1 ] allow-roaming=no band=""
 /interface vlan
 add interface=bridge-wifi name=vlan-10-vip vlan-id=10
 add interface=bridge-wifi name=vlan-20-guest vlan-id=20
